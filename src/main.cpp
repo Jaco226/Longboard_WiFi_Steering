@@ -10,12 +10,12 @@ char replyPacket[] = "Hi there! Got the message :-)"; // reply message
 
 
 // constantants
-const char * softApName = "SoftApByMe";
-const char * pass       = "12345678";
-const char servoPin     = D6;
+extern const char * softApName = "SoftApByMe";
+extern const char * pass       = "12345678";
+extern const char servoPin     = D6;
 
 //variables
-int receivedPacket = 0;
+extern int receivedPacket = 0;
 int statNum        = 0;
 int statNumCurrent = 0;
 // SERVO Config
@@ -31,14 +31,7 @@ void setup(){
     Serial.begin(9600);
     Serial.println();
     myServo.attach(servoPin);
-    Serial.print("Setting soft-AP configuration ... ");
-    Serial.println(WiFi.softAPConfig(local_IP, gateway, subnet) ? "Ready" : "Failed!");
 
-    Serial.print("Setting soft-AP ... ");
-    Serial.println(WiFi.softAP(softApName, pass, 1, false, 4) ? "Ready" : "Failed!");
-
-    Serial.print("Soft-AP IP address = ");
-    Serial.println(WiFi.softAPIP());
     Udp.begin(localUdpPort);
 }
 
