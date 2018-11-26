@@ -2,13 +2,11 @@
 #include "wificonfig.hpp"
 #include <ESP8266WiFi.h>
 
-bool wifiSoftApSetup(char * local_IPadress, char * gatewayAddress, char * subnetAddress, char * softApGivenName, char * softapPassword, int channel, bool isHidden, int maxClients)
+bool wifiSoftApSetup(char  local_IPadress, char gatewayAddress, char subnetAddress, const char * softApGivenName = "DefaultSoftAp", char * softapPassword = NULL, int channel = 0, bool isHidden = 0, int maxClients = 0)
 {
 
         bool isReady = 0;
         if((local_IPadress) && (gatewayAddress) && (subnetAddress) && (softApGivenName) && (softapPassword) && (channel) && (isHidden) && (maxClients)) {
-
-
 
 
                 Serial.print("Setting soft-AP configuration ... ");
@@ -22,17 +20,11 @@ bool wifiSoftApSetup(char * local_IPadress, char * gatewayAddress, char * subnet
                 isReady = 1;
 }
 else {
-  local_IPadress = "194,168,4,22";
-  gatewayAddress = "192,168,4,9";
-  subnetAddress = "225,225,225,0";
-  *softApGivenName = "DefaultSoftAp";
-
-  Serial.print("One or More of parameters is missing. /n Setting default ip with parameters: /n local_IPadres: %s /n gatewayAdress:  %s /n subnetAddress: %s /n SoftApName: %s", local_IPadres, gatewayAdress, subnetAddress, softApGivenName);
 
   Serial.print("Setting soft-AP configuration ... ");
-  Serial.println(WiFi.softAPConfig(local_IPadress, gatewayAdress, subnetAddress) ? "Ready" : "Failed!");
+  Serial.println(WiFi.softAPConfig(local_IPadress, gatewayAddress, subnetAddress) ? "Ready" : "Failed!");
 
-  Serial.print("Setting soft-AP ... ");
+  Serial.print("Setting soft-AP with default data... ");
   Serial.println(WiFi.softAP(softApGivenName) ? "Ready" : "Failed!");
 
 }

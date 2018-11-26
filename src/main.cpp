@@ -1,6 +1,6 @@
 #include <Servo.h>
+#include <wificonfig.hpp>
 #include "communication.hpp"
-
 
 // UDP Config
 WiFiUDP Udp;                                          // UDP Object
@@ -8,6 +8,10 @@ unsigned int localUdpPort = 4210;                     // UDP port to listen on
 char incomingPacket[255];                             // buffor for message
 char replyPacket[] = "Hi there! Got the message :-)"; // reply message
 
+
+IPAddress local_IP(192,168,4,22);
+IPAddress gateway(192,168,4,9);
+IPAddress subnet(255,255,255,0);
 
 // constantants
 extern const char * softApName = "SoftApByMe";
@@ -31,7 +35,7 @@ void setup(){
     Serial.begin(9600);
     Serial.println();
     myServo.attach(servoPin);
-
+    wifiSoftApSetup(local_IP, gateway, subnet, &softApName, &pass,10,0,4);
     Udp.begin(localUdpPort);
 }
 
